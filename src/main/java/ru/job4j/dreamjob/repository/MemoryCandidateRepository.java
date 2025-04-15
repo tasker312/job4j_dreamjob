@@ -2,7 +2,6 @@ package ru.job4j.dreamjob.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Vacancy;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,14 +38,17 @@ public class MemoryCandidateRepository implements CandidateRepository {
     }
 
     @Override
-    public void deleteById(int id) {
-        candidates.remove(id);
+    public boolean deleteById(int id) {
+        return candidates.remove(id) != null;
     }
 
     @Override
     public boolean update(Candidate candidate) {
-        return candidates.computeIfPresent(candidate.getId(),
-                (id, oldVacancy) -> new Candidate(oldVacancy.getId(), candidate.getName())) != null;
+        return candidates.computeIfPresent(
+                candidate.getId(),
+                (id, oldCandidate) ->
+                        new Candidate(oldCandidate.getId(), candidate.getName(), candidate.getDescription())
+        ) != null;
     }
 
     @Override
