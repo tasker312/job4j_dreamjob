@@ -15,38 +15,19 @@ public class Vacancy {
 
     private boolean visible;
 
+    private int cityId = 1;
+
     public Vacancy() {
         this.creationDate = LocalDateTime.now();
     }
 
-    public Vacancy(int id, String title) {
-        this.id = id;
-        this.title = title;
-        this.creationDate = LocalDateTime.now();
-        this.visible = true;
-    }
-
-    public Vacancy(int id, String title, boolean visible) {
-        this.id = id;
-        this.title = title;
-        this.creationDate = LocalDateTime.now();
-        this.visible = visible;
-    }
-
-    public Vacancy(int id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.creationDate = LocalDateTime.now();
-        this.visible = true;
-    }
-
-    public Vacancy(int id, String title, String description, boolean visible) {
+    public Vacancy(int id, String title, String description, boolean visible, int cityId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.creationDate = LocalDateTime.now();
         this.visible = visible;
+        this.cityId = cityId;
     }
 
     public int getId() {
@@ -83,6 +64,14 @@ public class Vacancy {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     @Override

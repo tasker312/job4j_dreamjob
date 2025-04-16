@@ -5,25 +5,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
+import ru.job4j.dreamjob.service.CityService;
 
 @Controller
 @RequestMapping("/candidates")
 public class CandidatesController {
 
     private final CandidateService candidateService;
+    private final CityService cityService;
 
-    public CandidatesController(CandidateService candidateService) {
+    public CandidatesController(CandidateService candidateService, CityService cityService) {
         this.candidateService = candidateService;
+        this.cityService = cityService;
     }
 
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute("candidates", candidateService.findAll());
+        model.addAttribute("cities", cityService.findAll());
         return "candidates/list";
     }
 
     @GetMapping("/create")
-    public String getCreationPage() {
+    public String getCreationPage(Model model) {
+        model.addAttribute("cities", cityService.findAll());
         return "candidates/create";
     }
 
@@ -41,6 +46,7 @@ public class CandidatesController {
             return "errors/404";
         }
         model.addAttribute("candidate", candidate.get());
+        model.addAttribute("cities", cityService.findAll());
         return "candidates/edit";
     }
 

@@ -11,6 +11,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
+                <th scope="col">City</th>
                 <th scope="col">Created at</th>
             </tr>
             </thead>
@@ -22,7 +23,10 @@
                        th:href="@{/candidates/{candidateId}(candidateId=${candidate.id})}">
                     </a>
                 </td>
-                <td th:text="${candidate.creationDate}"/>
+                <th:block th:with="cityId=${candidate.cityId}">
+                    <td th:text="${cities.^[id == #root.cityId].name}"/>
+                </th:block>
+                <td th:text="${{candidate.creationDate}}"/>
             </tr>
             </tbody>
         </table>

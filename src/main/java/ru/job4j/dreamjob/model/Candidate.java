@@ -13,21 +13,18 @@ public class Candidate {
 
     private final LocalDateTime creationDate;
 
+    private int cityId;
+
     public Candidate() {
         this.creationDate = LocalDateTime.now();
     }
 
-    public Candidate(int id, String name) {
-        this.id = id;
-        this.name = name;
-        creationDate = LocalDateTime.now();
-    }
-
-    public Candidate(int id, String name, String description) {
+    public Candidate(int id, String name, String description, int cityId) {
         this.id = id;
         this.name = name;
         this.description = description;
-        creationDate = LocalDateTime.now();
+        this.creationDate = LocalDateTime.now();
+        this.cityId = cityId;
     }
 
     public int getId() {
@@ -56,6 +53,14 @@ public class Candidate {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     @Override

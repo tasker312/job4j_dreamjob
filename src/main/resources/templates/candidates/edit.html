@@ -17,8 +17,17 @@
             <label for="description" class="form-label">
                 <b>Description</b>
             </label>
-            <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="25"
+            <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="10"
                       placeholder="Describe your experience"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="city">
+                <b>City</b>
+            </label>
+            <select class="form-control" id="city" name="cityId">
+                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}" th:field="*{cityId}"
+                        th:selected="${city.id==cityId}"></option>
+            </select>
         </div>
         <div class="mb-3 row">
             <div class="col-6"></div>

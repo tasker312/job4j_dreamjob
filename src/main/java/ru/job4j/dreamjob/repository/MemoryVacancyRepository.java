@@ -16,12 +16,12 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
     public MemoryVacancyRepository() {
-        save(new Vacancy(0, "Intern Java Developer", "nothing to describe"));
-        save(new Vacancy(0, "Junior Java Developer"));
-        save(new Vacancy(0, "Junior+ Java Developer"));
-        save(new Vacancy(0, "Middle Java Developer", "the best job in the best company"));
-        save(new Vacancy(0, "Middle+ Java Developer"));
-        save(new Vacancy(0, "Senior Java Developer"));
+        save(new Vacancy(0, "Intern Java Developer", "nothing to describe", true, 2));
+        save(new Vacancy(0, "Junior Java Developer", "", false, 1));
+        save(new Vacancy(0, "Junior+ Java Developer", "", true, 1));
+        save(new Vacancy(0, "Middle Java Developer", "the best job in the best company", false, 3));
+        save(new Vacancy(0, "Middle+ Java Developer", "", true, 3));
+        save(new Vacancy(0, "Senior Java Developer", "", true, 2));
     }
 
     @Override
@@ -40,11 +40,13 @@ public class MemoryVacancyRepository implements VacancyRepository {
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(
                 vacancy.getId(),
-                (id, oldVacancy) ->
-                        new Vacancy(
-                                oldVacancy.getId(),
-                                vacancy.getTitle(), vacancy.getDescription(), vacancy.getVisible()
-                        )
+                (id, oldVacancy) -> {
+                    oldVacancy.setTitle(vacancy.getTitle());
+                    oldVacancy.setDescription(vacancy.getDescription());
+                    oldVacancy.setVisible(vacancy.getVisible());
+                    oldVacancy.setCityId(vacancy.getCityId());
+                    return oldVacancy;
+                }
         ) != null;
     }
 
