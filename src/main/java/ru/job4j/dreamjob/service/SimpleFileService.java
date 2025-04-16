@@ -1,9 +1,7 @@
 package ru.job4j.dreamjob.service;
 
-import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.File;
 import ru.job4j.dreamjob.repository.FileRepository;
@@ -21,9 +19,9 @@ public class SimpleFileService implements FileService {
 
     private final String storageDirectory;
 
-    public SimpleFileService(FileRepository fileRepository,
+    public SimpleFileService(FileRepository sql2oFileRepository,
                              @Value("${file.directory}") String storageDirectory) {
-        this.fileRepository = fileRepository;
+        this.fileRepository = sql2oFileRepository;
         this.storageDirectory = storageDirectory;
         createStorageDirectory(storageDirectory);
     }
@@ -89,10 +87,5 @@ public class SimpleFileService implements FileService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @PreDestroy
-    public void preDestroyDeleteAllFiles() {
-        FileSystemUtils.deleteRecursively(new java.io.File(storageDirectory));
     }
 }
