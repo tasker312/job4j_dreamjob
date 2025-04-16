@@ -17,8 +17,12 @@
             <label for="description" class="form-label">
                 <b>Description</b>
             </label>
-            <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="25"
+            <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="10"
                       placeholder="Describe the requirements for the candidate"></textarea>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" name="visible" class="form-check-input" id="visible" th:field="*{visible}">
+            <label class="form-check-label" for="visible">Publish</label>
         </div>
         <div class="mb-3 row">
             <div class="col-6"></div>

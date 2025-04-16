@@ -9,6 +9,9 @@
         <table class="table">
             <thead>
             <tr>
+                <th>
+                    <i class="bi bi-square"></i>
+                </th>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Created at</th>
@@ -16,6 +19,14 @@
             </thead>
             <tbody>
             <tr th:each="vacancy: ${vacancies}">
+                <td>
+                    <span th:if="${vacancy.visible}">
+                        <i class="bi bi-check-square"></i>
+                    </span>
+                    <span th:if="${!vacancy.visible}">
+                        <i class="bi bi-square"></i>
+                    </span>
+                </td>
                 <td th:text="${vacancy.id}"/>
                 <td>
                     <a th:text="${vacancy.title}"

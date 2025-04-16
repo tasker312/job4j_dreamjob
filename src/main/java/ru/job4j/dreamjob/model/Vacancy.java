@@ -13,6 +13,8 @@ public class Vacancy {
 
     private final LocalDateTime creationDate;
 
+    private boolean visible;
+
     public Vacancy() {
         this.creationDate = LocalDateTime.now();
     }
@@ -21,6 +23,14 @@ public class Vacancy {
         this.id = id;
         this.title = title;
         this.creationDate = LocalDateTime.now();
+        this.visible = true;
+    }
+
+    public Vacancy(int id, String title, boolean visible) {
+        this.id = id;
+        this.title = title;
+        this.creationDate = LocalDateTime.now();
+        this.visible = visible;
     }
 
     public Vacancy(int id, String title, String description) {
@@ -28,6 +38,15 @@ public class Vacancy {
         this.title = title;
         this.description = description;
         this.creationDate = LocalDateTime.now();
+        this.visible = true;
+    }
+
+    public Vacancy(int id, String title, String description, boolean visible) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creationDate = LocalDateTime.now();
+        this.visible = visible;
     }
 
     public int getId() {
@@ -56,6 +75,14 @@ public class Vacancy {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     @Override
