@@ -15,8 +15,8 @@ public class SimpleCandidateService implements CandidateService {
 
     private final FileService fileService;
 
-    public SimpleCandidateService(CandidateRepository candidateRepository, FileService fileService) {
-        this.candidateRepository = candidateRepository;
+    public SimpleCandidateService(CandidateRepository sql2oCandidateRepository, FileService fileService) {
+        this.candidateRepository = sql2oCandidateRepository;
         this.fileService = fileService;
     }
 
@@ -36,17 +36,21 @@ public class SimpleCandidateService implements CandidateService {
     @Override
     public boolean deleteById(int id) {
         var candidateFile = candidateRepository.findById(id);
+        var isDeleted = candidateRepository.deleteById(id);
         candidateFile.ifPresent(candidate -> fileService.deleteById(candidate.getFileId()));
-        return candidateRepository.deleteById(id);
+        return isDeleted;
     }
 
     @Override
     public boolean update(Candidate candidate, FileDto file) {
-        if (file.getContent().length != 0) {
-            fileService.deleteById(candidate.getFileId());
-            saveNewFile(candidate, file);
+        if (file.getContent().length == 0) {
+            return candidateRepository.update(candidate);
         }
-        return candidateRepository.update(candidate);
+        var oldFileId = candidate.getFileId();
+        saveNewFile(candidate, file);
+        var isUpdated = candidateRepository.update(candidate);
+        fileService.deleteById(oldFileId);
+        return isUpdated;
     }
 
     @Override
