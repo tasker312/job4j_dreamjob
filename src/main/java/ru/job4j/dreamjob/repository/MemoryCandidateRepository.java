@@ -3,6 +3,7 @@ package ru.job4j.dreamjob.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +17,12 @@ public class MemoryCandidateRepository implements CandidateRepository {
     private final Map<Integer, Candidate> candidates = new HashMap<>();
 
     public MemoryCandidateRepository() {
-        save(new Candidate(0, "Ivanov Ivan", "i have no idea what is Java", 1, 0));
-        save(new Candidate(0, "John Ports", "best programmer", 3, 0));
-        save(new Candidate(0, "Adam Smith", "", 2, 0));
-        save(new Candidate(0, "Marcus Mitchel", "im professional", 3, 0));
-        save(new Candidate(0, "Victor Peterson", "", 1, 0));
-        save(new Candidate(0, "Harry Potter", "this is magic", 1, 0));
+        save(new Candidate(0, "Ivanov Ivan", "i have no idea what is Java", LocalDateTime.now(), 1, 0));
+        save(new Candidate(0, "John Ports", "best programmer", LocalDateTime.now(), 3, 0));
+        save(new Candidate(0, "Adam Smith", "", LocalDateTime.now(), 2, 0));
+        save(new Candidate(0, "Marcus Mitchel", "im professional", LocalDateTime.now(), 3, 0));
+        save(new Candidate(0, "Victor Peterson", "", LocalDateTime.now(), 1, 0));
+        save(new Candidate(0, "Harry Potter", "this is magic", LocalDateTime.now(), 1, 0));
     }
 
     @Override

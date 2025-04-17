@@ -34,11 +34,11 @@ public class Vacancy {
         this.creationDate = LocalDateTime.now();
     }
 
-    public Vacancy(int id, String title, String description, boolean visible, int cityId, int fileId) {
+    public Vacancy(int id, String title, String description, LocalDateTime creationDate, boolean visible, int cityId, int fileId) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.creationDate = LocalDateTime.now();
+        this.creationDate = creationDate;
         this.visible = visible;
         this.cityId = cityId;
         this.fileId = fileId;
