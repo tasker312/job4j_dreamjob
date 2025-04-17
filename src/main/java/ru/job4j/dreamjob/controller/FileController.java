@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.FileService;
 
 @RestController
@@ -23,12 +22,6 @@ public class FileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id, Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Guest");
-        }
-        model.addAttribute("user", user);
         var contentOptional = fileService.getFileById(id);
         if (contentOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
