@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.sql2o.Sql2o;
-import org.sql2o.Sql2oException;
 import ru.job4j.dreamjob.configuration.DatasourceConfiguration;
 import ru.job4j.dreamjob.model.User;
 
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class Sql2oUserRepositoryTest {
 
@@ -67,12 +66,10 @@ class Sql2oUserRepositoryTest {
     }
 
     @Test
-    public void whenSaveManyUsersWithSameEmailsThenException() {
+    public void whenSaveManyUsersWithSameEmailsThenOptionalEmpty() {
         var user = new User(0, "john@doe.com", "John", "password");
         sql2oUserRepository.save(user);
-        assertThatThrownBy(() -> sql2oUserRepository.save(user))
-                .isInstanceOf(Sql2oException.class)
-                .hasMessageContaining("Unique index or primary key violation");
+        assertThat(sql2oUserRepository.save(user)).isEmpty();
     }
 
     @Test
@@ -91,9 +88,7 @@ class Sql2oUserRepositoryTest {
 
     @Test
     public void whenSaveNullFieldThenException() {
-        assertThatThrownBy(() -> sql2oUserRepository.save(new User(0, null, null, null)))
-                .isInstanceOf(Sql2oException.class)
-                .hasMessageContaining("NULL not allowed");
+        assertThat(sql2oUserRepository.save(new User(0, null, null, null))).isEmpty();
     }
 
 }

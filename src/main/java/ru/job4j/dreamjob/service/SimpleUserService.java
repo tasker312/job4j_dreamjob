@@ -1,7 +1,6 @@
 package ru.job4j.dreamjob.service;
 
 import org.springframework.stereotype.Service;
-import org.sql2o.Sql2oException;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.repository.UserRepository;
 
@@ -23,11 +22,7 @@ public class SimpleUserService implements UserService {
                 || user.getPassword() == null) {
             return Optional.empty();
         }
-        try {
-            return userRepository.save(user);
-        } catch (Sql2oException e) {
-            return Optional.empty();
-        }
+        return userRepository.save(user);
     }
 
     @Override
