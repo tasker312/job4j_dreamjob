@@ -51,7 +51,7 @@ class Sql2oUserRepositoryTest {
         var savedUser = sql2oUserRepository.save(user);
         user.setId(savedUser.get().getId());
 
-        assertThat(savedUser).get().usingRecursiveAssertion().isEqualTo(user);
+        assertThat(savedUser).get().usingRecursiveComparison().isEqualTo(user);
     }
 
     @Test
@@ -78,7 +78,7 @@ class Sql2oUserRepositoryTest {
                 new User(0, "john@doe.com", "John", "password"));
         var foundUser = sql2oUserRepository.findByEmailAndPassword(
                 user.get().getEmail(), user.get().getPassword());
-        assertThat(foundUser).isNotEmpty().get().usingRecursiveAssertion().isEqualTo(user.get());
+        assertThat(foundUser).isNotEmpty().get().usingRecursiveComparison().isEqualTo(user.get());
     }
 
     @Test

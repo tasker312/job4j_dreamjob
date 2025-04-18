@@ -1,6 +1,5 @@
 package ru.job4j.dreamjob.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,14 +23,14 @@ public class VacancyController {
     }
 
     @GetMapping
-    public String getAll(Model model, HttpSession session) {
+    public String getAll(Model model) {
         model.addAttribute("vacancies", vacancyService.findAll());
         model.addAttribute("cities", cityService.findAll());
         return "vacancies/list";
     }
 
     @GetMapping("/create")
-    public String getCreationPage(Model model, HttpSession session) {
+    public String getCreationPage(Model model) {
         model.addAttribute("cities", cityService.findAll());
         return "vacancies/create";
     }
@@ -48,7 +47,7 @@ public class VacancyController {
     }
 
     @GetMapping("/{id}")
-    public String getById(@PathVariable int id, Model model, HttpSession session) {
+    public String getById(@PathVariable int id, Model model) {
         var vacancy = vacancyService.findById(id);
         if (vacancy.isEmpty()) {
             model.addAttribute("message", "Vacancy with id %d not found.".formatted(id));
@@ -75,7 +74,7 @@ public class VacancyController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable int id, Model model, HttpSession session) {
+    public String delete(@PathVariable int id, Model model) {
         boolean isDeleted = vacancyService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "Vacancy with id %d not found.".formatted(id));

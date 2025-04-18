@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String getRegisterPage(Model model, HttpSession session) {
+    public String getRegisterPage() {
         return "users/register";
     }
 
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model, HttpSession session) {
+    public String getLoginPage() {
         return "users/login";
     }
 
@@ -45,7 +45,7 @@ public class UserController {
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
         var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userOptional.isEmpty()) {
-            model.addAttribute("error", "Email or password incorrect.");
+            model.addAttribute("error", "Invalid email or password.");
             return "users/login";
         }
         var session = request.getSession();

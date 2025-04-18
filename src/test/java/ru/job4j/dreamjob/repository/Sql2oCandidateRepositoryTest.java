@@ -68,7 +68,7 @@ class Sql2oCandidateRepositoryTest {
         var creationDate = now().truncatedTo(ChronoUnit.MINUTES);
         var candidate = new Candidate(0, "Ivan", "programmer", creationDate, 3, file.getId());
         var savedCandidate = sql2oCandidateRepository.save(candidate);
-        assertThat(savedCandidate).usingRecursiveAssertion().isEqualTo(candidate);
+        assertThat(savedCandidate).usingRecursiveComparison().isEqualTo(candidate);
         assertThat(candidate).usingRecursiveComparison()
                 .isEqualTo(sql2oCandidateRepository.findById(savedCandidate.getId()).get());
     }
@@ -88,8 +88,8 @@ class Sql2oCandidateRepositoryTest {
         var savedCandidate2 = sql2oCandidateRepository.save(candidate2);
         var savedCandidates = sql2oCandidateRepository.findAll();
 
-        assertThat(savedCandidate1).usingRecursiveAssertion().isEqualTo(candidate1);
-        assertThat(savedCandidate2).usingRecursiveAssertion().isEqualTo(candidate2);
+        assertThat(savedCandidate1).usingRecursiveComparison().isEqualTo(candidate1);
+        assertThat(savedCandidate2).usingRecursiveComparison().isEqualTo(candidate2);
         assertThat(savedCandidates).containsExactlyInAnyOrder(savedCandidate1, savedCandidate2);
     }
 

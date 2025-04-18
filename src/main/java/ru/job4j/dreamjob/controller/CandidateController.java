@@ -1,6 +1,5 @@
 package ru.job4j.dreamjob.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,25 +11,25 @@ import ru.job4j.dreamjob.service.CityService;
 
 @Controller
 @RequestMapping("/candidates")
-public class CandidatesController {
+public class CandidateController {
 
     private final CandidateService candidateService;
     private final CityService cityService;
 
-    public CandidatesController(CandidateService candidateService, CityService cityService) {
+    public CandidateController(CandidateService candidateService, CityService cityService) {
         this.candidateService = candidateService;
         this.cityService = cityService;
     }
 
     @GetMapping
-    public String getAll(Model model, HttpSession session) {
+    public String getAll(Model model) {
         model.addAttribute("candidates", candidateService.findAll());
         model.addAttribute("cities", cityService.findAll());
         return "candidates/list";
     }
 
     @GetMapping("/create")
-    public String getCreationPage(Model model, HttpSession session) {
+    public String getCreationPage(Model model) {
         model.addAttribute("cities", cityService.findAll());
         return "candidates/create";
     }
@@ -47,7 +46,7 @@ public class CandidatesController {
     }
 
     @GetMapping("/{id}")
-    public String getById(@PathVariable int id, Model model, HttpSession session) {
+    public String getById(@PathVariable int id, Model model) {
         var candidate = candidateService.findById(id);
         if (candidate.isEmpty()) {
             model.addAttribute("message", "Candidate with id %d not found.".formatted(id));
@@ -74,7 +73,7 @@ public class CandidatesController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable int id, Model model, HttpSession session) {
+    public String delete(@PathVariable int id, Model model) {
         boolean isDeleted = candidateService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "Candidate with id %d not found.".formatted(id));
